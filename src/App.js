@@ -12,7 +12,7 @@ class App extends Component {
     };
 
     setInterval( () => {
-      fetch( 'https://dotnsf-fx.herokuapp.com/' ).then( res => res.json() ).then( data => {
+      fetch( 'https://dotnsf-fx.herokuapp.com/', { mode: 'cors' } ).then( res => res.json() ).then( data => {
         console.log( data );
         if( data && data.status ){
           this.setState({
@@ -41,15 +41,24 @@ class App extends Component {
     return (
     <div className="App">
       <header className="App-header">
-        <p>{this.state.datetime}</p>
-        <div>
-          <ul>
+        <h1 className="bg-primary text-white display-4">{this.state.datetime}</h1>
+        <div className="container">
           {this.state.rate != null ? Object.keys( this.state.rate ).map( ( key, i ) => (
-            <li>{key} : {this.state.rate[key]}</li>
+            <div className="card bg-primary text-white mt-4">
+              <div className="card-header">
+                {key}
+              </div>
+              <div className="card-body">
+                {this.state.rate[key]}
+              </div>
+            </div>
           )) :
-            <li>{this.state.message}</li>
+            <div className="card bg-danger text-white mt-4">
+              <div className="card-body">
+                {this.state.message}
+              </div>
+            </div>
           }
-          </ul>
         </div>
       </header>
     </div>
